@@ -1,0 +1,78 @@
+.wis-single-walk-table td {
+    vertical-align: top;
+}
+.wis-single-walk-table {
+    border: 1px solid black;
+}
+.wis-single-walk-button {
+  display: inline-block;
+  background: #3498db;
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  border-radius: 4px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  margin: 2px; 
+  text-decoration: none;
+}
+
+.wis-single-walk-button:hover {
+  background: #3cb0fd;
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+.wis-single-walk-photo {
+    overflow: auto;
+    width: 30%;
+    float: left;
+    border:10px;
+    margin: 0;
+    text-align: center;
+    padding: 10px;
+}
+.wis-photos p:nth-of-type(3) {
+    clear: both;
+}
+.wis-photos {
+    overflow: auto;
+}
+@media screen and (max-width: 480px) {
+    .wis-single-walk-photo {
+        width: 100%;
+        margin: 0;
+        text-align: center;
+        padding: 0;
+    }
+}
+.wismap-country {
+    height: 500px;
+}
+.wismap-area {
+    height: 600px;
+}
+.cbmw-1 { 
+    background-color: lightgreen !important;
+}
+.cbmw-2 {
+    background-color: yellow !important;
+}
+.cbmw-3 {
+    background-color: orange !important;
+}
+.cbmw-4 {
+    background-color: red !important;
+    color: white !important; 
+}
+.cbmw-5 {
+    background-color: black !important;
+    color: white !important; 
+}
+/*
+.wis-search-form input {
+    margin-left: 50px; 
+    margin-right: 50px;
+}
+.wis-search-form label {
+    margin-right: 50px;
+} */
