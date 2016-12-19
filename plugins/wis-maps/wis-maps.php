@@ -85,7 +85,7 @@ function wismap_add_js_scripts() {
     wp_enqueue_script('wismap-datatables', null, null, null, true);  // p5 true to get scripts loaded in the footer
     wp_register_script('wismap-datatables-responsive', '//cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js', array('jquery'));  // DataTables CDN
     wp_enqueue_script('wismap-datatables-responsive', null, null, null, true);  // p5 true to get scripts loaded in the footer
-    wp_register_script('wismap', WP_PLUGIN_URL.'/wis-maps/wismap.js', array('wismap-googlemaps','wismap-datatables'));  // nb wismap script requires googlemaps loaded before it
+    wp_register_script('wismap', WP_PLUGIN_URL.'/wis-maps/wismap-min.js', array('wismap-googlemaps','wismap-datatables'));  // nb wismap script requires googlemaps loaded before it
     wp_enqueue_script('wismap', null, null, null, true);   
     wp_localize_script('wismap', 'wisAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
 }
