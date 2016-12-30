@@ -1,3 +1,5 @@
+/* Single walk page */
+
 .wis-single-walk-table td {
     vertical-align: top;
 }
@@ -37,6 +39,9 @@
 .wis-photos {
     overflow: auto;
 }
+
+/* make photos and maps occupy full width on mobiles */
+
 @media screen and (max-width: 480px) {
     .wis-single-walk-photo {
         width: 100%;
@@ -44,13 +49,30 @@
         text-align: center;
         padding: 0;
     }
+    .wismap-country {
+        width: 100%;
+    }
+    .wismap-area {
+        width: 100%;
+    }
 }
+
 .wismap-country {
     height: 500px;
 }
 .wismap-area {
     height: 600px;
 }
+
+/* in the search form, set margins for the 'and' label between max and min */
+
+.wismap-and-label {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* for setting the colour of the grades in the list, in accordance with the walk difficulty */
+
 .cbmw-1 { 
     background-color: lightgreen !important;
 }
@@ -68,11 +90,3 @@
     background-color: black !important;
     color: white !important; 
 }
-/*
-.wis-search-form input {
-    margin-left: 50px; 
-    margin-right: 50px;
-}
-.wis-search-form label {
-    margin-right: 50px;
-} */

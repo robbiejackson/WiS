@@ -342,19 +342,19 @@ function display_search_form() {
     $return .= '</select></td></tr>';
     // Walk length
     $return .= '<tr><td><label for="min-length">Length (km) between</label></td>';
-    $return .= '<td><input name="min-length" type="number" min="0" max="50" size="5" step="1" value="' . ( isset( $_POST["min-length"] ) ? esc_attr( $_POST["min-length"] ) : "") . '"></td>';
-    $return .= '<td><label for="max-length">and</label></td>';
-    $return .= '<td><input name="max-length" type="number" min="0" max="50" size="5" step="1" value="' . ( isset( $_POST["max-length"] ) ? esc_attr( $_POST["max-length"] ) : "") . '"></td></tr>';
+    $return .= '<td><input name="min-length" type="number" min="0" max="50" size="5" step="1" value="' . ( isset( $_POST["min-length"] ) ? esc_attr( $_POST["min-length"] ) : "") . '">';
+    $return .= '<label class="wismap-and-label" for="max-length">and</label>';
+    $return .= '<input name="max-length" type="number" min="0" max="50" size="5" step="1" value="' . ( isset( $_POST["max-length"] ) ? esc_attr( $_POST["max-length"] ) : "") . '"></td></tr>';
     // Total ascent
     $return .= '<tr><td><label for="min-ascent">Ascent (metres) between</label></td>';
-    $return .= '<td><input name="min-ascent" type="number" min="0" max="5000" size="5" step="100" value="' . ( isset( $_POST["min-ascent"] ) ? esc_attr( $_POST["min-ascent"] ) : "") . '"></td>';
-    $return .= '<td><label for="max-ascent">and</label></td>';
-    $return .= '<td><input name="max-ascent" type="number" min="0" max="5000" size="5" step="100" value="' . ( isset( $_POST["max-ascent"] ) ? esc_attr( $_POST["max-ascent"] ) : "") . '"></td></tr>';
+    $return .= '<td><input name="min-ascent" type="number" min="0" max="5000" size="5" step="100" value="' . ( isset( $_POST["min-ascent"] ) ? esc_attr( $_POST["min-ascent"] ) : "") . '">';
+    $return .= '<label class="wismap-and-label" for="max-ascent">and</label>';
+    $return .= '<input name="max-ascent" type="number" min="0" max="5000" size="5" step="100" value="' . ( isset( $_POST["max-ascent"] ) ? esc_attr( $_POST["max-ascent"] ) : "") . '"></td></tr>';
     // Total walking time
     $return .= '<tr><td><label for="min-walktime">Walking time (hours) between</label></td>';
-    $return .= '<td><input name="min-walktime" type="number" min="0" max="20" size="5" step="1" value="' . ( isset( $_POST["min-walktime"] ) ? esc_attr( $_POST["min-walktime"] ) : "") . '"></td>';
-    $return .= '<td><label for="max-walktime">and</label></td>';
-    $return .= '<td><input name="max-walktime" type="number" min="0" max="20" size="5" step="1" value="' . ( isset( $_POST["max-walktime"] ) ? esc_attr( $_POST["max-walktime"] ) : "") . '"></td></tr>';
+    $return .= '<td><input name="min-walktime" type="number" min="0" max="20" size="5" step="1" value="' . ( isset( $_POST["min-walktime"] ) ? esc_attr( $_POST["min-walktime"] ) : "") . '">';
+    $return .= '<label class="wismap-and-label" for="max-walktime">and</label>';
+    $return .= '<input name="max-walktime" type="number" min="0" max="20" size="5" step="1" value="' . ( isset( $_POST["max-walktime"] ) ? esc_attr( $_POST["max-walktime"] ) : "") . '"></td></tr>';
     // Search text string
     $return .= '<tr><td><label for="search-text">Search text (eg town)</label></td>';
     $return .= '<td><input type="text" name="search-text" pattern="[a-zA-Z0-9 ]+" value="' . ( isset( $_POST["search-text"] ) ? esc_attr( $_POST["search-text"] ) : '' ) . '"  /></td></tr>';

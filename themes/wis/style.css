@@ -41,8 +41,8 @@ So you can make overrides and extensions directly in this child style.css.
  Add specific style overrides here...
 
 */
-.footer-menu-class { display: block; width:960px;}
-.footer-menu-class ul { display:inline; float:right;}
+.footer-menu-class { display: block; float: right; width:75%;}
+.footer-menu-class ul { display:inline; float:right; }
 .footer-menu-class li { list-style-type: none; display: inline; font-size: 12px; }
 .footer-menu-class li a {
 	color:blue;

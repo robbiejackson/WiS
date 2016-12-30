@@ -65,8 +65,8 @@ var singleWalkRoute = "";   // an array to hold the GPS coordinates for a single
 function displayMapsAndLists() {
     //console.log(typeof list);
     //console.log(typeof nmaps);
-    console.log(iconfolder);
-    if (typeof placeinfo !== 'undefined') console.log(placeinfo);
+    //console.log(iconfolder);
+    //if (typeof placeinfo !== 'undefined') console.log(placeinfo);
     //if (typeof walkinfo !== 'undefined') console.log(walkinfo);
     if (typeof nmaps !== 'undefined') {
         if (map_country_or_area1 == 'country') {
@@ -97,7 +97,7 @@ function getRoute(gpx) {
         data: {action: "get_track", fname: gpx},
         success: function(response) {
             if (response.type == "success") {
-                console.log(response.track);
+                //console.log(response.track);
                 singleWalkRoute = response.track;   // store in case the user wants this track again
             } else {
                 console.log("ajax response.type wasn't success");
@@ -136,7 +136,7 @@ function displayMap(map_element, latitude, longitude, zoom, maptype) {
     mapTypeIds.push("Land");
     var map = new google.maps.Map(document.getElementById(map_element), {
         center: {lat: Number(latitude), lng: Number(longitude)}, zoom: Number(zoom), mapTypeId: map_selected(maptype),
-        mapTypeControlOptions: { mapTypeIds: mapTypeIds }, streetViewControl: false, scrollwheel: false }
+    mapTypeControlOptions: { mapTypeIds: mapTypeIds }, streetViewControl: false, scrollwheel: false, gestureHandling: 'cooperative' }
     );
     maps.push(map);
     map.mapTypes.set("OSM", new google.maps.ImageMapType({
@@ -231,7 +231,7 @@ function displayAreaMap(map_element, latitude, longitude, zoom, maptype, walkinf
     var map = displayMap(map_element, latitude, longitude, zoom, maptype);
     infoWindow = new google.maps.InfoWindow;
     //console.log(walkinfo);
-    console.log(placeinfo);
+    //console.log(placeinfo);
     for (var i = 0; i < walkinfos.length; i++) {
         walkinfos[i].id = i;   // give each walk a unique id, and store it with the other walk info
         if (walkinfos[i].placeid) {
@@ -406,8 +406,8 @@ function addNumberIconListener(map, marker, placeid, placeinfo) {
 }
 
 function displaySingleWalk(event) {
-    console.log('in displaySingleWalk');
-    console.log(walkinfo);
+    //console.log('in displaySingleWalk');
+    //console.log(walkinfo);
     jQuery("#wismap1").addClass("wismap-area");  // make a big space now on the page for the map
     var thisWalkinfo = JSON.parse(walkinfo)[0];
     var map = displayMap('wismap1', latitude1, longitude1, zoom1, maptype1);
@@ -420,13 +420,13 @@ function displaySingleWalk(event) {
         optimized: false,  // needed for zIndex to work
     });
     if (singleWalkRoute) {
-        console.log('found the route');
+        //console.log('found the route');
         drawRoute(map, 0, singleWalkRoute, colour, false);
     } else {
-        console.log('route not downloaded yet');
+        //console.log('route not downloaded yet');
         var attempts = 1;
         var waitForAjax = setInterval(function() {
-            console.log('waiting for ajax');
+            //console.log('waiting for ajax');
             if (singleWalkRoute) {
                 drawRoute(map, 0, singleWalkRoute, colour, false);
                 clearInterval(waitForAjax);
@@ -480,7 +480,7 @@ function offsetPinSymbol(angle, colour) {
         var l2 = Math.round(10.0 * c);
         var m1 = x - l1;
         var m2 = y - l2;
-        console.log ('vars l1=' + l1 + ', l2=' + l2 + ', m1=' + m1 + ', m2=' + m2);
+        //console.log ('vars l1=' + l1 + ', l2=' + l2 + ', m1=' + m1 + ', m2=' + m2);
         return {
             // path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z M -2,-30 a 2,2 0 1,1 4,0 2,2 0 1,1 -4,0',
             // path: 'M 0,0 c -2,-20 -10,-22 -10,-30 a 10,10 0 1,1 20,10 c 0,8 -8,10 0,0 z',
