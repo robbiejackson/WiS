@@ -53,8 +53,10 @@ if ( !defined('ABSPATH')) exit; // Exit if accessed directly
                 $content .= '<div class="wis-photos">';
                 for ($i = 0; $i < count($walk->field('photo')); $i++) {
                     $photo = $walk->field('photo')[$i];
+                    $img = wp_get_attachment_url( $photo['ID'] );
+                    $alt = $photo['post_title'];  // set the image Alt Text to be the filename
                     $content .= '<figure class="wis-single-walk-photo">';
-                    $content .= '<img class="attachment-medium_large size-medium_large" src="' . $photo['guid'] . '" alt="image0372-1" scale="0" width="300" height="225">';
+                    $content .= '<img class="attachment-medium_large size-medium_large" src="' . $img . '" alt="' . $alt . '" scale="0" width="300" height="225">';
                     $content .= "<figcaption>" . $photo['post_excerpt'] . "</figcaption>";
                     $content .= "</figure>";
                     $content .= '<p style="visibility:hidden; margin: 0; border: 0; padding: 0"></p>';
