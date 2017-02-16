@@ -52,7 +52,8 @@ if ( !defined('ABSPATH')) exit; // Exit if accessed directly
             if ($walk->field('photo')) {
                 $content .= '<div class="wis-photos">';
                 for ($i = 0; $i < count($walk->field('photo')); $i++) {
-                    $photo = $walk->field('photo')[$i];
+                    $photos = $walk->field('photo');
+                    $photo = $photos[$i];
                     $img = wp_get_attachment_url( $photo['ID'] );
                     $alt = $photo['post_title'];  // set the image Alt Text to be the filename
                     $content .= '<figure class="wis-single-walk-photo">';

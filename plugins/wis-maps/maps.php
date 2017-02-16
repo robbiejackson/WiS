@@ -164,6 +164,12 @@ function prepare_area_walkinfo($area) {
             );
         $walk->find($params);
         while ($walk->fetch()) {
+            $gps_track_file = $walk->field('gps_track_file');
+            if ( count($gps_track_file) > 0) {
+                $gpxfile = wp_get_attachment_url ($gps_track_file['ID']);
+            } else {
+                $gpxfile = '';
+            }
             $javascript_walkinfo_element = array(
                 'name' => $walk->field('post_title'),
                 'lat' => $walk->field('start_point_latitude'),
@@ -177,7 +183,7 @@ function prepare_area_walkinfo($area) {
                 'walk_time' => $walk->field('walking_time'),
                 'difficulty' => $walk->field('difficulty'),
                 'url' => get_permalink($walk->field('id')),
-                'gpx' => $walk->field('gps_track_file')['guid']
+                'gpx' => $gpxfile,
                 );
             array_push($wismaps_walkinfo,$javascript_walkinfo_element);
         }
@@ -266,6 +272,12 @@ function display_wis_search($maptype, $pagelength) {
     global $wismaps_walkinfo;
     while ($walk->fetch()) {
         $nwalks++;
+        $gps_track_file = $walk->field('gps_track_file');
+        if ( count($gps_track_file) > 0) {
+            $gpxfile = wp_get_attachment_url ($gps_track_file['ID']);
+        } else {
+            $gpxfile = '';
+        }
         $javascript_walkinfo_element = array(
             'name' => $walk->field('post_title'),
             'lat' => $walk->field('start_point_latitude'),
@@ -279,7 +291,7 @@ function display_wis_search($maptype, $pagelength) {
             'walk_time' => $walk->field('walking_time'),
             'difficulty' => $walk->field('difficulty'),
             'url' => get_permalink($walk->field('id')),
-            'gpx' => $walk->field('gps_track_file')['guid']
+            'gpx' => $gpxfile,
             );
         array_push($wismaps_walkinfo,$javascript_walkinfo_element);
     }
@@ -424,6 +436,12 @@ function display_walk_map($walk) {
         $lat = $walk->field('start_point_latitude');
         $lng = $walk->field('start_point_longitude');
     }
+    $gps_track_file = $walk->field('gps_track_file');
+    if ( count($gps_track_file) > 0) {
+        $gpxfile = wp_get_attachment_url ($gps_track_file['ID']);
+    } else {
+        $gpxfile = '';
+    }
     $javascript_walkinfo_element = array(
         'name' => $walk->field('post_title'),
         'lat' => $lat,
@@ -437,7 +455,7 @@ function display_walk_map($walk) {
         'walk_time' => $walk->field('walking_time'),
         'difficulty' => $walk->field('difficulty'),
         'url' => get_permalink($walk->field('id')),
-        'gpx' => $walk->field('gps_track_file')['guid']
+        'gpx' => $gpxfile,
         );
     array_push($wismaps_walkinfo,$javascript_walkinfo_element);
     wp_localize_script('wismap', 'walkinfo', json_encode($wismaps_walkinfo));

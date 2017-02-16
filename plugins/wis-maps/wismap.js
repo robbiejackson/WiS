@@ -152,7 +152,7 @@ function displayMap(map_element, latitude, longitude, zoom, maptype) {
     map.mapTypes.set("OCM", new google.maps.ImageMapType({
         getTileUrl: function(coord, zoom) {
                 //console.log ('in OCM getTileUrl with coord ' + coord.x + ', ' + coord.y + ' and zoom ' + zoom);
-                return "http://tile.opencyclemap.org/cycle/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
+                return "https://tile.thunderforest.com/cycle/" + zoom + "/" + coord.x + "/" + coord.y + ".png?apikey=" + thunderforest_API_key;
             },
             tileSize: new google.maps.Size(256, 256),
             name: "OCM",
