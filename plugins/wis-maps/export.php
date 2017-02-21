@@ -159,7 +159,7 @@ function export_place_pod() {
     $fname = "place-" . date("Y-m-d-H-i-s") . ".csv";
     $pathname = plugin_dir_path( __FILE__ ) . 'exports/' . $fname;
     $csv = fopen($pathname, "w");
-    $nbytes = fwrite($csv, "Place | Description | Area | Latitude | Longitude \n");
+    $nbytes = fwrite($csv, "Place | Description | Area | Latitude | Longitude | Nearest town \n");
     $place = pods( 'place' );
     $params = array( 
         'limit' => -1,
@@ -171,7 +171,8 @@ function export_place_pod() {
         $area = $place->field('place_area.name');
         $lat = $place->field('latitude');
         $long = $place->field('longitude');
-        $nbytes = fwrite($csv, $name . '|' . $description . '|' .$area . '|' . $lat .'|' . $long . "\n");
+        $town = $place->field('nearest_town');
+        $nbytes = fwrite($csv, $name . '|' . $description . '|' .$area . '|' . $lat . '|' . $long . '|' . $town . "\n");
     }
     fclose($csv); 
     echo "<br>Places exported to file " . $pathname . "<br><br>";

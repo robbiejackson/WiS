@@ -28,14 +28,16 @@ if ( !defined('ABSPATH')) exit; // Exit if accessed directly
             $content .= "<p>The grade of this walk is " . $walk->field('walk_grade.name') . ", which means <br/> " . $walk->field('walk_grade.description') . " </p>";
             $content .= '<table class="wis-single-walk-table" style="width:100%">';
             $content .= "<tr><td>Nearest town</td><td>" . $walk->field('town') . "</td></tr>";
-            $content .= "<tr><td>Directions to start</td><td>" . $walk->field('directions_to_start') . "</td></tr>";
             $place = $walk->field('walk_place');
             if ($place) {
                 $walk_place = pods ('place', $place['term_id']);
                 $latlng = $walk_place->field('latitude') . ", " .  $walk_place->field('longitude');
+                $directions = $walk_place->display('description');
             } else {
                 $latlng = $walk->field('start_point_latitude') . ", " . $walk->field('start_point_longitude');
+                $directions = $walk->display('directions_to_start');
             }
+            $content .= "<tr><td>Directions to start</td><td>$directions</td></tr>";
             $content .= "<tr><td>Start point (Lat/Long)</td><td>" . $latlng . '<br>Click <a href="https://maps.google.com/maps?q=loc:' . $latlng . '" target="_blank">here</a> to view in Google Maps (in a new browser tab)</td></tr>';
             $content .= "<tr><td>Length (km)</td><td>" . $walk->field('distance') . "</td></tr>";
             $content .= "<tr><td>Ascent (metres)</td><td>" . $walk->field('ascent') . "</td></tr>";

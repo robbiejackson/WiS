@@ -259,6 +259,32 @@ function wis_maps_settings_page() {
 }
 require_once( plugin_dir_path( __FILE__ ) . 'export.php' );
 
+/**
+ *  The code below is used when inserting or updating a Walk record; it's a 
+ *  pre-save trigger used to update the Walk record prior to saving it to the database
+ *  See http://pods.io/docs/code/filter-reference/pods_api_pre_save_pod_item_podname/
+ *  If the administrator chooses a Place record as the starting point, then the code copies
+ *  the nearest town field from the Place record to the Walk record.
+ *  This isn't the best approach from a database perspective, but it's done so that the
+ *  walk search facility has all the information that's being searched on within the Walk record itself.
+ *  Otherwise we'd have to do a join across Walk and Place to find records where the text matched the nearest town,
+ *  and I don't know how to do that in Pods. 
+ */
+
+add_filter('pods_api_pre_save_pod_item_walk', 'add_town', 10, 2);
+function add_town($pieces, $is_new_item) {
+
+    $place_id = $pieces[ 'fields' ][ 'walk_place' ][ 'value' ];
+    if ($place_id != '') {
+        $place_record = pods( 'place', $place_id );
+        if ( $place_record->exists() ) {
+            $pieces[ 'fields' ][ 'town' ][ 'value' ] = $place_record->field('nearest_town');
+        }
+    }
+
+    return $pieces;
+} 
+
 /**  
  *  Plugin code
  *  The plugin works through inclusion of the shortcode [wismap] on a page.
