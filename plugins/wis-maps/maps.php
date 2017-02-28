@@ -415,16 +415,6 @@ function display_walk_map($walk) {
     $wismap_number_of_maps += 1;
     wp_localize_script('wismap', 'nmaps', (string)$wismap_number_of_maps);
     wp_localize_script('wismap', 'map_country_or_area' . (string)$wismap_number_of_maps, 'walk');
-    $params = array (
-                'latitude' => $walk->field('start_point_latitude'),
-                'longitude' => $walk->field('start_point_longitude'),
-                'zoom' => "14",
-                );
-    localize_common_mapinfo(get_option('default_walk_maptype'), $params);
-    //
-    // Prepare the information about the walk, and send it json-encoded to the js
-    //
-    global $wismaps_walkinfo;
     // if the $walk record has a standard starting place then get the lat / long from it instead of the $walk record
     // (rather than sending down the placeinfo information)
     $place = $walk->field('walk_place');
@@ -436,6 +426,16 @@ function display_walk_map($walk) {
         $lat = $walk->field('start_point_latitude');
         $lng = $walk->field('start_point_longitude');
     }
+    $params = array (
+                'latitude' => $lat,
+                'longitude' => $lng,
+                'zoom' => "14",
+                );
+    localize_common_mapinfo(get_option('default_walk_maptype'), $params);
+    //
+    // Prepare the information about the walk, and send it json-encoded to the js
+    //
+    global $wismaps_walkinfo;
     $gps_track_file = $walk->field('gps_track_file');
     if ( count($gps_track_file) > 0) {
         $gpxfile = wp_get_attachment_url ($gps_track_file['ID']);
