@@ -53,3 +53,8 @@ So you can make overrides and extensions directly in this child style.css.
 }
 .footer-menu-class li a:hover { color:red; text-decoration:none;}
 .footer-menu-class li:last-child > a {border-right: none; margin-right: 30px; } /* remove pipe from last item */
+
+/* The following CSS is to provide a little extra space for the Jetpack Sharing mechanism, to stop the buttons disappearing under the footer menu */
+div.sharedaddy {
+    margin-bottom: 50px; 
+}
