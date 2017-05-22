@@ -19,6 +19,8 @@ if ( !defined('ABSPATH')) exit; // Exit if accessed directly
         $slug = pods_v( 'last', 'url' ); 
         $walk = pods( 'walk', get_the_id() );
         if ( $walk->exists() ) {
+            // add copyright notice
+            $content .= '<p class="wis-ign-copyright">' . get_option('ign-copyright-text') . '</p>';
             if ($walk->field('gps_track_file')) {
                 // We can show a route of this walk on a map - get the data prepared for showing it
                 $content .= display_walk_map($walk);

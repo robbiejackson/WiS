@@ -118,6 +118,7 @@ function wis_maps_plugin_settings() {
 	register_setting( 'wis_maps-plugin-settings-group', 'default_country_maptype' );
 	register_setting( 'wis_maps-plugin-settings-group', 'default_area_maptype' );
     register_setting( 'wis_maps-plugin-settings-group', 'default_walk_maptype' );
+    register_setting( 'wis_maps-plugin-settings-group', 'ign-copyright-text' );
     register_setting( 'wis_maps-plugin-settings-group', 'map_explanation' );
     register_setting( 'wis_maps-plugin-settings-group', 'list_explanation' );
 }
@@ -181,6 +182,11 @@ function wis_maps_settings_page() {
         <tr valign="top">
         <th scope="row">Thunderforest API key</th>
         <td><input class="wis-maps-api-key" id="wis-maps-tf-api-key" type="text" name="thunderforest_API_key" value="<?php echo esc_attr( get_option('thunderforest_API_key') ); ?>" /></td>
+        </tr>
+        
+        <tr valign="top">
+        <th scope="row">IGN Copyright Text</th>
+        <td><input class="wis-maps-textarea" rows="2" id="wis-maps-ign-copyright-text" type="text" name="ign-copyright-text" value="<?php echo esc_attr( get_option('ign-copyright-text') ); ?>" /></td>
         </tr>
         
         <tr valign="top">
