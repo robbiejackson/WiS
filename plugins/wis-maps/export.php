@@ -50,7 +50,7 @@ function export_walk_pod() {
             $walking_time .'|'. $total_time .'|'. $grade .'|'. $difficulty .'|'. $start_lat .'|'. $start_long .'|'. $place .'|'. 
             $directions_to_start .'|'. $restrictions .'|'. $walk_desc['post_title']  .'|'. $gps_file['post_title'] . '|';
         for ($i=1; $i<=6; $i++) {
-            if (count($photos) >= $i) {
+            if (!empty($photos) && count($photos) >= $i) {
                 $line .= $photos[$i-1]['post_title'] .'|'. $photos[$i-1]['post_excerpt'] .'|';
             } else {
                 $line .= '||';

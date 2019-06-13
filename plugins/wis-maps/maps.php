@@ -165,7 +165,7 @@ function prepare_area_walkinfo($area) {
         $walk->find($params);
         while ($walk->fetch()) {
             $gps_track_file = $walk->field('gps_track_file');
-            if ( count($gps_track_file) > 0) {
+            if ( !empty($gps_track_file) && count($gps_track_file) > 0) {
                 $gpxfile = wp_get_attachment_url ($gps_track_file['ID']);
             } else {
                 $gpxfile = '';
@@ -273,7 +273,7 @@ function display_wis_search($maptype, $pagelength) {
     while ($walk->fetch()) {
         $nwalks++;
         $gps_track_file = $walk->field('gps_track_file');
-        if ( count($gps_track_file) > 0) {
+        if ( !empty($gps_track_file) && count($gps_track_file) > 0) {
             $gpxfile = wp_get_attachment_url ($gps_track_file['ID']);
         } else {
             $gpxfile = '';
@@ -437,7 +437,7 @@ function display_walk_map($walk) {
     //
     global $wismaps_walkinfo;
     $gps_track_file = $walk->field('gps_track_file');
-    if ( count($gps_track_file) > 0) {
+    if ( !empty($gps_track_file) && count($gps_track_file) > 0) {
         $gpxfile = wp_get_attachment_url ($gps_track_file['ID']);
     } else {
         $gpxfile = '';
