@@ -304,7 +304,7 @@ function processWalksWithPlace(map, placeinfos) {
     }
 }
 
-function addOffsetMarker(map, position, walkinfo, angle, zIndex) {
+function addOffsetMarker(map, position, walkinfo, angle, nwalks, zIndex) {
 // adds a marker pin for the case where a numbered icon is expanded to show the n walks starting there.
     //console.log('Adding offset marker for ' + walkinfo.name + ' id: ' + walkinfo.id + ' place id: ' + walkinfo.placeid + ' at ' + position.lat + ', ' + position.lng + ' and angle ' + angle + ' and zindex ' + zIndex);
     var colour = difficultyColour(walkinfo.difficulty, false);
@@ -312,7 +312,7 @@ function addOffsetMarker(map, position, walkinfo, angle, zIndex) {
         position: position,
         title: walkinfo.name,
         map: map,
-        icon: offsetPinSymbol(angle, difficultyColour (walkinfo.difficulty, false)),
+        icon: offsetPinSymbol(angle, difficultyColour (walkinfo.difficulty, false), nwalks),
         id: walkinfo.id,
         optimized: false,
         zIndex: google.maps.Marker.MAX_ZINDEX + zIndex
@@ -386,10 +386,18 @@ function addNumberIconListener(map, marker, placeid, placeinfo) {
         // To manage this use a variable visibilityState.
         if (this.visibilityState == 0) {
             this.visibilityState = 1;
+			var increment = 0.2;
+			var sector = 2.0*Math.PI / numWalksAtThisPlace;
             for (var i = 0; i < numWalksAtThisPlace; i++) {  
-                var angle = 2.0*i*Math.PI / numWalksAtThisPlace - 0.5 * Math.PI;  
-                var zIndex = (i > 0.5 * numWalksAtThisPlace) ? (numWalksAtThisPlace - i + 1) : i + 1;
-                addOffsetMarker(map, {lat: Number(placeinfo.lat), lng: Number(placeinfo.lng)}, walksWithPlaces[placeid][i], angle, zIndex);
+                var angle = sector * i - 0.5 * Math.PI;  
+				if (numWalksAtThisPlace > 8) {
+					// add a little bit to the angles either side of the top pin, so that it's easier to select
+					if (i > 0) {
+						angle = sector + increment + (i - 1) * 2.0 * (Math.PI - sector - increment) / (numWalksAtThisPlace - 2) - 0.5 * Math.PI; 
+						}
+				}
+				var zIndex = (i > 0.5 * numWalksAtThisPlace) ? (numWalksAtThisPlace - i + 1) : i + 1;
+                addOffsetMarker(map, {lat: Number(placeinfo.lat), lng: Number(placeinfo.lng)}, walksWithPlaces[placeid][i], angle, numWalksAtThisPlace, zIndex);
             }
         } else if (this.visibilityState == 1) {
             this.visibilityState = 2;
@@ -455,11 +463,16 @@ function pinSymbol(colour) { // see http://stackoverflow.com/questions/7095574/g
    };
 }
 
-function offsetPinSymbol(angle, colour) {
+function offsetPinSymbol(angle, colour, nwalks) {
 // SVG for a marker pin when a number of walks are expanded, with (x,y) being the position of the bottom of the pin relative to the bottom of the number icon
-    var x = Math.round(50.0 * Math.cos(angle));
-    var y = Math.round(50.0 * Math.sin(angle));
-    if (Math.abs(angle - Math.PI/2.0) > Math.atan(1.0/3.0)) {
+    var multiplier = 50.0;
+	// make distance to base of pin bigger if there are more than 8 walks
+	if (nwalks >= 8) {
+		multiplier += (nwalks - 8) * 5.0
+		}
+	var x = Math.round(multiplier * Math.cos(angle));
+    var y = Math.round(multiplier * Math.sin(angle));
+    if (Math.abs(angle - Math.PI/2.0) > Math.atan(19.0/multiplier)) {
         //console.log('normal processing for angle ' + angle);
         return {
             // path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z M -2,-30 a 2,2 0 1,1 4,0 2,2 0 1,1 -4,0',
@@ -476,8 +489,8 @@ function offsetPinSymbol(angle, colour) {
         //console.log('complex processing for angle ' + angle);
         var c = Math.cos(Math.PI/2.0 - angle);
         var s = Math.sin(Math.PI/2.0 - angle);
-        var l1 = Math.round(10.0 * s);
-        var l2 = Math.round(10.0 * c);
+        var l1 = Math.round((multiplier - 40) * s);
+        var l2 = Math.round((multiplier - 40) * c);
         var m1 = x - l1;
         var m2 = y - l2;
         //console.log ('vars l1=' + l1 + ', l2=' + l2 + ', m1=' + m1 + ', m2=' + m2);
