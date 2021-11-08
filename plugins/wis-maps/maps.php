@@ -26,12 +26,12 @@
 
 function localize_common_mapinfo($maptype, $params) { // utility function to localize info common to both country and area maps
     global $wismap_number_of_maps;
-    wp_localize_script('wismap', 'latitude' . (string)$wismap_number_of_maps, $params['latitude']);
-    wp_localize_script('wismap', 'longitude' . (string)$wismap_number_of_maps, $params['longitude']);
-    wp_localize_script('wismap', 'zoom' . (string)$wismap_number_of_maps, $params['zoom']);
-    wp_localize_script('wismap', 'maptype' . (string)$wismap_number_of_maps, strtolower($maptype));
-    wp_localize_script('wismap', 'thunderforest_API_key', get_option('thunderforest_API_key'));
-    wp_localize_script('wismap', 'iconfolder', trailingslashit( plugins_url( '', __FILE__)) . 'icons/');
+    wp_localize_script('wismap', 'latitude' . (string)$wismap_number_of_maps, array($params['latitude']));
+    wp_localize_script('wismap', 'longitude' . (string)$wismap_number_of_maps, array($params['longitude']));
+    wp_localize_script('wismap', 'zoom' . (string)$wismap_number_of_maps, array($params['zoom']));
+    wp_localize_script('wismap', 'maptype' . (string)$wismap_number_of_maps, array(strtolower($maptype)));
+    wp_localize_script('wismap', 'thunderforest_API_key', array(get_option('thunderforest_API_key')));
+    wp_localize_script('wismap', 'iconfolder', array(trailingslashit( plugins_url( '', __FILE__)) . 'icons/'));
 }
 
 function pass_places_to_js($area) {
@@ -50,15 +50,15 @@ function pass_places_to_js($area) {
             );
     }
     _log($javascript_placeinfo);
-    wp_localize_script('wismap', 'placeinfo', json_encode($javascript_placeinfo));
+    wp_localize_script('wismap', 'placeinfo', array(json_encode($javascript_placeinfo)));
 }
 
 function display_country_map($area_id, $maptype, $params){
     wismap_add_js_scripts();   // we're going to need the javascript loaded
     global $wismap_number_of_maps;
     $wismap_number_of_maps += 1;
-    wp_localize_script('wismap', 'nmaps', (string)$wismap_number_of_maps);
-    wp_localize_script('wismap', 'map_country_or_area' . (string)$wismap_number_of_maps, 'country');
+    wp_localize_script('wismap', 'nmaps', array((string)$wismap_number_of_maps));
+    wp_localize_script('wismap', 'map_country_or_area' . (string)$wismap_number_of_maps, array('country'));
     localize_common_mapinfo($maptype, $params);
     $javascript_areainfo = array();
     //
@@ -119,7 +119,7 @@ function display_country_map($area_id, $maptype, $params){
         array_push($javascript_areainfo,$javascript_areainfo_element);
     }
     //_log($polygon_coords);
-    wp_localize_script('wismap', 'areainfo' . (string)$wismap_number_of_maps, json_encode($javascript_areainfo));
+    wp_localize_script('wismap', 'areainfo' . (string)$wismap_number_of_maps, array(json_encode($javascript_areainfo)));
     return "<div class='wismap-country' id='wismap" . (string)$wismap_number_of_maps . "'><br>Map loading ...<br>Note that this requires javascript to be switched on<br></div>";
 }
 
@@ -188,7 +188,7 @@ function prepare_area_walkinfo($area) {
             array_push($wismaps_walkinfo,$javascript_walkinfo_element);
         }
         //_log($wismaps_walkinfo);
-        wp_localize_script('wismap', 'walkinfo', json_encode($wismaps_walkinfo));
+        wp_localize_script('wismap', 'walkinfo', array(json_encode($wismaps_walkinfo)));
     }
 }
 
@@ -197,8 +197,8 @@ function display_area_map($area, $maptype, $params) {
     wismap_add_js_scripts();   // we're going to need the javascript loaded
     global $wismap_number_of_maps;
     $wismap_number_of_maps += 1;
-    wp_localize_script('wismap', 'nmaps', (string)$wismap_number_of_maps);
-    wp_localize_script('wismap', 'map_country_or_area' . (string)$wismap_number_of_maps, 'area');
+    wp_localize_script('wismap', 'nmaps', array((string)$wismap_number_of_maps));
+    wp_localize_script('wismap', 'map_country_or_area' . (string)$wismap_number_of_maps, array('area'));
     localize_common_mapinfo($maptype, $params);
     prepare_area_walkinfo($area);
     return get_option('map_explanation') . "<div class='wismap-area' id='wismap" . (string)$wismap_number_of_maps . "'><br>Map loading ...<br>Note that this requires javascript to be switched on<br></div>";
@@ -207,8 +207,8 @@ function display_area_map($area, $maptype, $params) {
 function display_area_list($area, $pagelength) {
     wismap_add_js_scripts();
     prepare_area_walkinfo($area);
-    wp_localize_script('wismap', 'list', 'true');
-    wp_localize_script('wismap', 'pagelength', $pagelength);
+    wp_localize_script('wismap', 'list', array('true'));
+    wp_localize_script('wismap', 'pagelength', array($pagelength));
     return get_option('list_explanation') . "<div class='wismap-list' id='wismap-list'><br>Div for List of Walks<br></div>";
 }
 
@@ -306,11 +306,11 @@ function display_wis_search($maptype, $pagelength) {
     wismap_add_js_scripts();
     localize_common_mapinfo($maptype, $map_params);
     pass_places_to_js($area_name);
-    wp_localize_script('wismap', 'nmaps', (string)$wismap_number_of_maps);
-    wp_localize_script('wismap', 'map_country_or_area' . (string)$wismap_number_of_maps, 'area');
-    wp_localize_script('wismap', 'walkinfo', json_encode($wismaps_walkinfo));
-    wp_localize_script('wismap', 'list', 'true');
-    wp_localize_script('wismap', 'pagelength', $pagelength);
+    wp_localize_script('wismap', 'nmaps', array((string)$wismap_number_of_maps));
+    wp_localize_script('wismap', 'map_country_or_area' . (string)$wismap_number_of_maps, array('area'));
+    wp_localize_script('wismap', 'walkinfo', array(json_encode($wismaps_walkinfo)));
+    wp_localize_script('wismap', 'list', array('true'));
+    wp_localize_script('wismap', 'pagelength', array($pagelength));
     $return .= get_option('map_explanation') . "<div class='wismap-area' id='wismap" . (string)$wismap_number_of_maps . "'><br>Map loading ...<br>Note that this requires javascript to be switched on<br></div>";
     $return .= get_option('list_explanation') . "<div class='wismap-list' id='wismap-list'><br>Div for List of Walks<br></div>";
     return $return;
@@ -413,8 +413,8 @@ function display_walk_map($walk) {
     // First we add all the general map information
     global $wismap_number_of_maps;
     $wismap_number_of_maps += 1;
-    wp_localize_script('wismap', 'nmaps', (string)$wismap_number_of_maps);
-    wp_localize_script('wismap', 'map_country_or_area' . (string)$wismap_number_of_maps, 'walk');
+    wp_localize_script('wismap', 'nmaps', array((string)$wismap_number_of_maps));
+    wp_localize_script('wismap', 'map_country_or_area' . (string)$wismap_number_of_maps, array('walk'));
     // if the $walk record has a standard starting place then get the lat / long from it instead of the $walk record
     // (rather than sending down the placeinfo information)
     $place = $walk->field('walk_place');
@@ -458,7 +458,7 @@ function display_walk_map($walk) {
         'gpx' => $gpxfile,
         );
     array_push($wismaps_walkinfo,$javascript_walkinfo_element);
-    wp_localize_script('wismap', 'walkinfo', json_encode($wismaps_walkinfo));
+    wp_localize_script('wismap', 'walkinfo', array(json_encode($wismaps_walkinfo)));
     //
     // Return the div for the map
     // Note that there's no class on the div, because that would cause a big space to appear on the page
