@@ -186,7 +186,7 @@ function wis_maps_settings_page() {
         
         <tr valign="top">
         <th scope="row">IGN Copyright Text</th>
-        <td><input class="wis-maps-textarea" rows="2" id="wis-maps-ign-copyright-text" type="text" name="ign-copyright-text" value="<?php echo esc_attr( get_option('ign-copyright-text') ); ?>" /></td>
+                <td><textarea class="wis-maps-textarea" rows="8" id="wis-maps-ign-copyright-text" name="ign-copyright-text" ><?php echo esc_attr( get_option('ign-copyright-text') ); ?></textarea></td>
         </tr>
         
         <tr valign="top">
